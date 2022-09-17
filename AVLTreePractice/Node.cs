@@ -7,7 +7,8 @@ namespace AVLTreePractice
     class Node<T> where T : IComparable<T>
     {
         public T Value;
-        public int Height;
+        public int Depth;
+        public int Balance { get; set; }
         public Node<T> Left;
         public Node<T> Right;
         public Node<T> Parent;
@@ -30,7 +31,7 @@ namespace AVLTreePractice
 
         public Node(T value, Node<T> parent)
         {
-            Height = 1;
+            Depth = 1;
             Value = value;
             Left = null;
             Right = null;
