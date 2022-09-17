@@ -39,7 +39,7 @@ namespace AVLTreePractice
                 parentNode.Right = Insert(value, parentNode.Right);
             }
 
-            //ret node that 
+            //ret node to replace 
 
             Node<T> ret = Balance(parentNode);
             return ret;
@@ -48,56 +48,48 @@ namespace AVLTreePractice
         public void AdjustHeight(Node<T> node)
         {
             //update node height to, height of largest child (by val), depth of larger child's node depth + 1
+
+
         }
 
+        //update in this order
+        //height
+        //balance
+        //then and only then Rotate
 
         public Node<T> Balance(Node<T> nodeToBalance)
         {
-            if(nodeToBalance.Balance > 1) //balance != 2
+            if(nodeToBalance.Balance < -1) //balance != 2
             {
-                if(nodeToBalance.Left.Balance == 0)
-                {
-                    nodeToBalance.Left = LeftRoate(nodeToBalance.Left);
-                }
-                nodeToBalance.Left = LeftRoate(nodeToBalance);
+                nodeToBalance = LeftRotate(nodeToBalance);
             }
-            else if(nodeToBalance.Balance < -1) //balance != -2
+            else if(nodeToBalance.Balance > 1) //balance != -2
             {
-                if(nodeToBalance.Right.Balance < 0)
-                {
-                    nodeToBalance.Right = RightRotate(nodeToBalance.Right);
-                }
-                nodeToBalance.Right = RightRotate(nodeToBalance);
+                nodeToBalance = RightRotate(nodeToBalance);
             }
 
-            //update in this order
-            //height
-            //balance
-            //then and only then Rotate
-
-            //as u go up tree
-            //balance (set dept to larger child node's depth + 1; 
-            //next, roate left/right, or double rotate left/right 
-
-
-            return null; 
+            return nodeToBalance; 
         }
 
         public Node<T> RightRotate(Node<T> node)
         {
-            Node<T> roationNode = node.Right;
-            node.Right = roationNode.Left;
-            roationNode = node;
+            Node<T> rotationNode = node.Right;
+            node.Right = rotationNode.Left;
+            node.Left = rotationNode;
 
-            AdjustHeight(node);
+            AdjustHeight(rotationNode);
 
-            return roationNode; 
+            return rotationNode; 
         }
-        public Node<T> LeftRoate(Node<T> node)
+        public Node<T> LeftRotate(Node<T> node)
         {
+            Node<T> rotationNode = node.Left;
+            node.Left = rotationNode.Right;
+            node.Right = rotationNode;
 
+            AdjustHeight(rotationNode);
 
-            return null; 
+            return rotationNode;
         }
     }
 }
