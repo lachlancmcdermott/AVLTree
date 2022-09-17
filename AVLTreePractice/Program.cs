@@ -8,7 +8,9 @@ namespace AVLTreePractice
         {
             Tree<int> tree = new Tree<int>();
 
-            tree.Insert(10);
+            tree.Insert(1);
+            tree.Insert(2);
+            tree.Insert(3);
         }
     }
 }

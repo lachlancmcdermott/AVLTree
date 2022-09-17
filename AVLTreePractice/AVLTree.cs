@@ -39,20 +39,11 @@ namespace AVLTreePractice
                 parentNode.Right = Insert(value, parentNode.Right);
             }
 
-            //ret node to replace 
-
             Node<T> ret = Balance(parentNode);
             return ret;
         }
 
-        public void AdjustHeight(Node<T> node)
-        {
-            //update node height to, height of largest child (by val), depth of larger child's node depth + 1
-
-
-        }
-
-        //update in this order
+        //update in this order 
         //height
         //balance
         //then and only then Rotate
@@ -67,8 +58,33 @@ namespace AVLTreePractice
             {
                 nodeToBalance = RightRotate(nodeToBalance);
             }
-
             return nodeToBalance; 
+        }
+
+        public void AdjustHeight(Node<T> nodeToAdjust)
+        {
+            int leftChildHeight = 0;
+            int rightChildHeight = 0;
+
+            if (nodeToAdjust.Left != null)
+            {
+                leftChildHeight = nodeToAdjust.Left.Depth;
+            }
+            if (nodeToAdjust.Right != null)
+            {
+                rightChildHeight = nodeToAdjust.Right.Depth;
+            }
+
+            int depth = 0;
+            if(leftChildHeight > rightChildHeight)
+            {
+                depth = leftChildHeight;
+            }
+            else
+            {
+                depth = rightChildHeight;
+            }
+            nodeToAdjust.Depth = depth + 1;
         }
 
         public Node<T> RightRotate(Node<T> node)
@@ -77,7 +93,8 @@ namespace AVLTreePractice
             node.Right = rotationNode.Left;
             node.Left = rotationNode;
 
-            AdjustHeight(rotationNode);
+            //Adjust Height
+            AdjustHeight(node);
 
             return rotationNode; 
         }
@@ -87,7 +104,8 @@ namespace AVLTreePractice
             node.Left = rotationNode.Right;
             node.Right = rotationNode;
 
-            AdjustHeight(rotationNode);
+            //Adjust Height
+            AdjustHeight(node);
 
             return rotationNode;
         }
