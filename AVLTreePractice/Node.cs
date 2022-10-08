@@ -4,28 +4,22 @@ using System.Text;
 
 namespace AVLTreePractice
 {
-    class Node<T> where T : IComparable<T>
+    public class Node<T> where T : IComparable<T>
     {
         public T Value;
         public int Depth;
-        public int Balance { get; set; }
         public Node<T> Left;
         public Node<T> Right;
         public Node<T> Parent;
 
-        public bool isLeaf
+        public int Balance
         {
             get
             {
-                return this.Left == null && this.Right == null;
-            }
-        }
+                int rightChildHeight = this.Right != null ? this.Right.Depth : 0;
+                int leftChildHeight = this.Left != null ? this.Left.Depth : 0;
 
-        public bool isLeftChild
-        {
-            get
-            {
-                return this.Parent.Left == this;
+                return leftChildHeight - rightChildHeight;   
             }
         }
 

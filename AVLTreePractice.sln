@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVLTreePractice", "AVLTreePractice\AVLTreePractice.csproj", "{CD7B439E-8B7D-4EF2-A098-FCE4794301D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AVLTreePractice", "AVLTreePractice\AVLTreePractice.csproj", "{CD7B439E-8B7D-4EF2-A098-FCE4794301D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleTest", "ExampleTest\ExampleTest.csproj", "{E958A2B8-9074-4404-AD07-B31859F4E556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{CD7B439E-8B7D-4EF2-A098-FCE4794301D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7B439E-8B7D-4EF2-A098-FCE4794301D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7B439E-8B7D-4EF2-A098-FCE4794301D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E958A2B8-9074-4404-AD07-B31859F4E556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E958A2B8-9074-4404-AD07-B31859F4E556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E958A2B8-9074-4404-AD07-B31859F4E556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E958A2B8-9074-4404-AD07-B31859F4E556}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

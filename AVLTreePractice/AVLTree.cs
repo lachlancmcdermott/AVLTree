@@ -9,17 +9,20 @@ using System.Xml.Linq;
 
 namespace AVLTreePractice
 {
-    class Tree<T> where T : IComparable<T>
+    public class Tree<T> where T : IComparable<T>
     {
-        Node<T> Head;
+        public Node<T> Head;
+        public int Count { get; private set; }
 
         public void Insert(T value)
         {
+            Count++;
             if (Head == null)
             {
                 Head = new Node<T>(value, null);
+                return;
             }
-            Insert(value, Head);
+            Head = Insert(value, Head);
         }
 
         private Node<T> Insert(T value, Node<T> parentNode)
@@ -39,23 +42,27 @@ namespace AVLTreePractice
                 parentNode.Right = Insert(value, parentNode.Right);
             }
 
+            AdjustHeight(parentNode);
             Node<T> ret = Balance(parentNode);
             return ret;
         }
 
-        //update in this order 
-        //height
-        //balance
-        //then and only then Rotate
-
         public Node<T> Balance(Node<T> nodeToBalance)
         {
-            if(nodeToBalance.Balance < -1) //balance != 2
+            if (nodeToBalance.Balance < -1) //balance != 2
             {
+                if (nodeToBalance.Right.Balance == 1)
+                {
+                    nodeToBalance.Right = RightRotate(nodeToBalance.Right);
+                }
                 nodeToBalance = LeftRotate(nodeToBalance);
             }
-            else if(nodeToBalance.Balance > 1) //balance != -2
+            else if (nodeToBalance.Balance > 1) //balance != -2
             {
+                if (nodeToBalance.Left.Balance == -1)
+                {
+                    nodeToBalance.Left = LeftRotate(nodeToBalance.Left);
+                }
                 nodeToBalance = RightRotate(nodeToBalance);
             }
             return nodeToBalance; 
@@ -63,48 +70,29 @@ namespace AVLTreePractice
 
         public void AdjustHeight(Node<T> nodeToAdjust)
         {
-            int leftChildHeight = 0;
-            int rightChildHeight = 0;
+            int rightChildHeight = nodeToAdjust.Right != null? nodeToAdjust.Right.Depth : 0;
+            int leftChildHeight = nodeToAdjust.Left != null? nodeToAdjust.Left.Depth : 0;
 
-            if (nodeToAdjust.Left != null)
-            {
-                leftChildHeight = nodeToAdjust.Left.Depth;
-            }
-            if (nodeToAdjust.Right != null)
-            {
-                rightChildHeight = nodeToAdjust.Right.Depth;
-            }
-
-            int depth = 0;
-            if(leftChildHeight > rightChildHeight)
-            {
-                depth = leftChildHeight;
-            }
-            else
-            {
-                depth = rightChildHeight;
-            }
+            int depth = leftChildHeight > rightChildHeight? leftChildHeight : rightChildHeight;
             nodeToAdjust.Depth = depth + 1;
         }
 
-        public Node<T> RightRotate(Node<T> node)
+        public Node<T> LeftRotate(Node<T> node)
         {
             Node<T> rotationNode = node.Right;
             node.Right = rotationNode.Left;
-            node.Left = rotationNode;
+            rotationNode.Left = node;
 
-            //Adjust Height
             AdjustHeight(node);
 
             return rotationNode; 
         }
-        public Node<T> LeftRotate(Node<T> node)
+        public Node<T> RightRotate(Node<T> node)
         {
             Node<T> rotationNode = node.Left;
             node.Left = rotationNode.Right;
-            node.Right = rotationNode;
-
-            //Adjust Height
+            rotationNode.Right = node;
+                
             AdjustHeight(node);
 
             return rotationNode;
